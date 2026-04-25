@@ -28,10 +28,8 @@ allprojects {
 if (System.getenv("JITPACK") == "true") {
     subprojects { subproject ->
         subproject.afterEvaluate {
-            subproject.tasks.matching { task ->
-                def n = task.class.name
-                n.contains("signing") && n.endsWith("Sign")
-            }.configureEach { it.enabled = false }
+            subproject.tasks.matching { task -> task.class.simpleName == "Sign" }
+                    .configureEach { it.enabled = false }
         }
     }
 }

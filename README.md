@@ -8,6 +8,7 @@ MMKV is an **efficient**, **small**, **easy-to-use** mobile key-value storage fr
 
 > [!NOTE]
 > This project is a fork of the original [Tencent/MMKV](https://github.com/Tencent/MMKV), which supports 32-bit devices on Android.  
+> **This fork is hosted at [codewithtamim/MMKV](https://github.com/codewithtamim/MMKV).**  
 > See more info about this fork [here](./Fork.md).
 
 # MMKV for Android
@@ -36,6 +37,35 @@ dependencies {
     implementation 'io.github.goooler.mmkv:mmkv:<version>'
 }
 ```
+
+**Maven Central** uses the coordinates above (`io.github.goooler.mmkv`, as in [`Android/MMKV/gradle.properties`](Android/MMKV/gradle.properties)). The [`annotation`](https://central.sonatype.com/artifact/io.github.goooler.mmkv/annotation) artifact is a normal transitive dependency of `mmkv`.
+
+### Installation via [JitPack](https://jitpack.io)
+
+The repository root [`jitpack.yml`](jitpack.yml) builds the Android project under `Android/MMKV` and publishes the same artifacts to JitPack. Add the JitPack repository, then depend on a **tag**, **commit hash**, or `-SNAPSHOT` branch (see [JitPack docs](https://docs.jitpack.io)):
+
+In `settings.gradle` (Groovy) or your version catalog’s repository block, include:
+
+```groovy
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+In your app module’s `build.gradle` (use a real tag or commit in place of `v2.2.4` or `abc1234`):
+
+```gradle
+dependencies {
+    // JitPack: com.github.<GitHub-username>:<repo> (this fork: codewithtamim / MMKV)
+    implementation 'com.github.codewithtamim:MMKV:v2.2.4'
+}
+```
+
+The published POM may still reference the **`io.github.goooler.mmkv`** `annotation` artifact as a transitive dependency (see [`Android/MMKV/gradle.properties`](Android/MMKV/gradle.properties) `GROUP`); keep **Maven Central** and/or JitPack in your repositories so Gradle can resolve it.
 
 For other installation options, see [Android Setup](https://github.com/Tencent/MMKV/wiki/android_setup).
 
