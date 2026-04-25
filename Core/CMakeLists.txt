@@ -131,12 +131,22 @@ add_library(core
         MMKVPredef.h
         )
 
+# openssl_aesv8-armx.S is AArch64 (ARMv8 + crypto) assembly.  It must only be
+# built for arm64-v8a — not armeabi-v7a, x86, or x86_64 (those use C fallbacks).
 IF (MSVC OR (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64"))
     # .S files is not supported by MSVC.
     # x86_64 asm not supported in OHOS
 ELSE()
-    target_sources(core PRIVATE
-        aes/openssl/openssl_aesv8-armx.S)
+    set(_core_add_openssl_aesv8_arm_asm ON)
+    IF (ANDROID)
+        IF (NOT "${ANDROID_ABI}" STREQUAL "arm64-v8a")
+            set(_core_add_openssl_aesv8_arm_asm OFF)
+        ENDIF()
+    ENDIF()
+    IF (_core_add_openssl_aesv8_arm_asm)
+        target_sources(core PRIVATE
+            aes/openssl/openssl_aesv8-armx.S)
+    ENDIF()
 ENDIF()
 
 target_include_directories(core PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
