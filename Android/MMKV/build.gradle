@@ -23,3 +23,15 @@ allprojects {
         }
     }
 }
+
+// JitPack has no PGP keyring; disable signing when JITPACK is set (backup if -PsignAllPublications=false is missed).
+if (System.getenv("JITPACK") == "true") {
+    subprojects { subproject ->
+        subproject.afterEvaluate {
+            subproject.tasks.matching { task ->
+                def n = task.class.name
+                n.contains("signing") && n.endsWith("Sign")
+            }.configureEach { it.enabled = false }
+        }
+    }
+}
