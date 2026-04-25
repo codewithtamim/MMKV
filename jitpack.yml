@@ -1,4 +1,4 @@
 jdk:
   - openjdk17
 install:
-  - cd Android/MMKV && ./gradlew :mmkv:publishReleasePublicationToMavenLocal :mmkvannotation:publishReleasePublicationToMavenLocal -PsignAllPublications=false
+  - cd Android/MMKV && ./gradlew :mmkv:publishToMavenLocal :mmkvannotation:publishToMavenLocal -PsignAllPublications=false
