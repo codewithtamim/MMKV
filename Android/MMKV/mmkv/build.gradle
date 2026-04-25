@@ -13,6 +13,7 @@ android {
         externalNativeBuild {
             cmake {
                 abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
             }
         }
         ndkVersion "28.1.13356709"
@@ -52,7 +53,7 @@ android {
             ext.artifactIdSuffix = ''
             externalNativeBuild {
                 cmake {
-                    arguments = ["-DANDROID_STL=c++_static"]
+                    arguments = ["-DANDROID_STL=c++_static", "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"]
                     cppFlags "-DMMKV_STL_SHARED=0"
                 }
             }
@@ -62,7 +63,7 @@ android {
             ext.artifactIdSuffix = 'static'
             externalNativeBuild {
                 cmake {
-                    arguments = ["-DANDROID_STL=c++_static"]
+                    arguments = ["-DANDROID_STL=c++_static", "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"]
                     cppFlags "-DMMKV_STL_SHARED=0"
                 }
             }
@@ -72,7 +73,7 @@ android {
             ext.artifactIdSuffix = 'shared'
             externalNativeBuild {
                 cmake {
-                    arguments = ["-DANDROID_STL=c++_shared"]
+                    arguments = ["-DANDROID_STL=c++_shared", "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"]
                     cppFlags "-DMMKV_STL_SHARED=1"
                 }
             }
