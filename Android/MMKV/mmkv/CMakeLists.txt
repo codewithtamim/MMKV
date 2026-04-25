@@ -54,3 +54,10 @@ target_link_libraries( mmkv
                        core
 #                       aes
 )
+
+# 16KB ELF max page: Gradle's ANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES is not always
+# applied the same for 32-bit (armeabi-v7a, x86); force the linker for libmmkv.so.
+if(ANDROID)
+    target_link_options(mmkv PRIVATE
+        "LINKER:-z,max-page-size=16384")
+endif()

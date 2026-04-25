@@ -26,7 +26,7 @@ MMKV is an **efficient**, **small**, **easy-to-use** mobile key-value storage fr
   * **A handful of files**: MMKV contains process locks, encode/decode helpers and mmap logics, and nothing more. It's really tidy.
   * **About 50K in binary size**: MMKV adds about 50K per architecture on App size, and much less when zipped (APK).
 
-* **16 KB page size (Android native)**. The native build uses the NDK’s [flexible page size](https://developer.android.com/guide/practices/page-sizes) support so `libmmkv.so` is 16K-aligned on all ABIs. The `mmkv-shared` Maven flavor uses **`c++_static`** and does not ship the NDK’s prebuilt `libc++_shared.so` (on **armeabi-v7a** and **x86** that prebuild is still 4K-aligned, which breaks strict 16K checks; **arm64** / **x86_64** prebuilds are 16K). The C++ runtime is linked into `libmmkv.so` instead.
+* **16 KB page size (Android native)**. CMake links `libmmkv.so` with `-z max-page-size=16384` on top of Gradle’s `ANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES`, so 32-bit ABIs (**armeabi-v7a**, **x86**) get a 16K max page the same way as 64-bit. The `mmkv-shared` Maven flavor uses **`c++_static`** and does not ship the NDK’s prebuilt `libc++_shared.so` (32-bit prebuilds are still 4K-aligned). The C++ runtime is in `libmmkv.so`.
 
 
 ## Getting Started
